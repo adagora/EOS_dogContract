@@ -2,7 +2,8 @@ ScatterJS.plugins( new ScatterEOS() );
 //> python -m SimpleHTTPServer 80
 const network = ScatterJS.Network.fromJson({
     blockchain:'eos',
-    chainId:'cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f',     //> curl http://localhost:8888/v1/chain/get_info
+    //> curl http://localhost:8888/v1/chain/get_info
+    chainId:'cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f',     
     host:'127.0.0.1',
     port:8888,
     protocol:'http'
@@ -25,12 +26,15 @@ ScatterJS.connect('DogDap', {network}).then(connected => {
   console.log("scatter connected");
 
   const scatter = ScatterJS.scatter;
-  windows.ScatterJS = null;     //none can acces scatter through the windows
+  //none can acces scatter through the windows
+  windows.ScatterJS = null;     
 
   scatter.login({accounts: [network]}).then(function(){
     account = scatter.account('eos');
-    rpc = new eosjs_jsonrpc.JsonRpc(network.fullhost());  //get dogs
-    eos = scatter.eos(network, eosjs_api.Api, {rpc}); //add dog
+    //get dogs
+    rpc = new eosjs_jsonrpc.JsonRpc(network.fullhost());
+    //add dog
+    eos = scatter.eos(network, eosjs_api.Api, {rpc}); 
 
     getDogs();
     getBalances();
@@ -46,7 +50,8 @@ function getDogs(){
     table: contractConfig.dogTableName,
     index_position: 2,
     key_type: "name",
-    lower_bound: account.name,              //from scatter
+    //from scatter
+    lower_bound: account.name,              
     upper_bound: account.name,
   }).then(function(res){
     console.log(res);
@@ -66,22 +71,28 @@ function getBalances(){
 }
 
 function populateDogList(dogs){
-  $("#doglist").empty(); // auto refresh(do not duplicate list)
-  var ul = document.getElementById("doglist"); //created in HTML
+  // auto refresh(do not duplicate list)
+  $("#doglist").empty();
+  //created in HTML
+  var ul = document.getElementById("doglist"); 
   for (var i = 0; i < dogs.length; i++){
     var li = document.createElement("li");
     li.appendChild(document.createTextNode(dogs[i].id + ": " + dogs[i].dog_name + ", " + dogs[i].age));
-    ul.appendChild(li);       //add to a list
+    //add to list
+    ul.appendChild(li);       
 
 }
 }
 function populateBalanceList(balances){
-  $("#balance_list").empty(); // auto refresh(do not duplicate list)
-  var ul = document.getElementById("balance_list"); //created in HTML
+  // auto refresh(do not duplicate list)
+  $("#balance_list").empty(); 
+  //created in HTML
+  var ul = document.getElementById("balance_list"); 
   for (var i = 0; i < balances.length; i++){
     var li = document.createElement("li");
     li.appendChild(document.createTextNode(balances[i].funds));
-    ul.appendChild(li);       //add to a list
+    //add to a list
+    ul.appendChild(li);       
 
   }
 }
@@ -105,7 +116,8 @@ function(addDog){
         age: dogAge,
       },
   }]
-  }, { //standards 3 block behind
+  }, { 
+  //standards 3 block behind
   blocksBehind: 3,
   expireSeconds: 30
   }).then(function(res){
@@ -163,7 +175,8 @@ function(addDog){
   }]
 }
 
-}, { //standards 3 block behind
+}, { 
+  //standards 3 block behind
   blocksBehind: 3,
   expireSeconds: 30
 }).then(function(res){
@@ -195,7 +208,8 @@ function(addDog){
         memo:"DogDapp Deposit"
       },
   }]
-  }, { //standards 3 block behind
+  }, { 
+  //standards 3 block behind
   blocksBehind: 3,
   expireSeconds: 30
   }).then(function(res){
