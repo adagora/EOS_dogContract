@@ -42,4 +42,4 @@ cleos get table inline payable balances
 ```
  
 #### Contribution:
-Dapp Template for Ivan on Tech Academy
+This repository is made for education purposes. Thanks to Ivan & Filip for the great education on https://academy.ivanontech.com/
